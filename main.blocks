@@ -1,18 +1,18 @@
-<xml xmlns="https://developers.google.com/blockly/xml"><variables><variable type="KIND_SpriteKind" id="T.@M!ylM]#Xh4e]hHb*=">Player</variable><variable type="KIND_SpriteKind" id="bsJ^Wm!k%gD%G2ftL~#D">Projectile</variable><variable type="KIND_SpriteKind" id="/cR5~Z0,4%-Sa)-znLY(">Food</variable><variable type="KIND_SpriteKind" id="XJ?j5(:UcC#!wVU-ZSDb">Enemy</variable><variable id="Kg|5o%~+A!Okp:1F3tXo">mySprite</variable><variable id="A$`o[#X=r51*t,B~Sq^K">player1</variable></variables><block type="pxt-on-start" id="?5J)%#+bTcL2pcKp~bul" x="0" y="0"><statement name="HANDLER"><block type="variables_set" id="DaFdK^8a=}Y!ImWcb%#A"><field name="VAR" id="A$`o[#X=r51*t,B~Sq^K">player1</field><value name="VALUE"><shadow xmlns="http://www.w3.org/1999/xhtml" type="math_number"><field name="NUM">0</field></shadow><block type="spritescreate" id="tn0nmCR#31^RTh?bq%10"><value name="img"><shadow type="screen_image_picker" id="F++u?!W;jn?y`4.,VZ;_"><field name="img">img`
+<xml xmlns="https://developers.google.com/blockly/xml"><variables><variable type="KIND_SpriteKind" id="T.@M!ylM]#Xh4e]hHb*=">Player</variable><variable type="KIND_SpriteKind" id="bsJ^Wm!k%gD%G2ftL~#D">Projectile</variable><variable type="KIND_SpriteKind" id="/cR5~Z0,4%-Sa)-znLY(">Food</variable><variable type="KIND_SpriteKind" id="XJ?j5(:UcC#!wVU-ZSDb">Enemy</variable><variable id="Kg|5o%~+A!Okp:1F3tXo">mySprite</variable><variable id="A$`o[#X=r51*t,B~Sq^K">player1</variable></variables><block type="pxt-on-start" id="cFN9erI_M%!/RVjv66hL" x="0" y="0"><statement name="HANDLER"><block type="gamesetbackgroundcolor" id="tGcp?$CSXkrIkWQW*p(]"><value name="color"><shadow type="colorindexpicker" id="vEV2qV@upV*cv]csUlx/"><field name="index">9</field></shadow></value><next><block type="variables_set" id="oD1^P.D$)$((B[j,D*ek"><field name="VAR" id="A$`o[#X=r51*t,B~Sq^K">player1</field><value name="VALUE"><shadow xmlns="http://www.w3.org/1999/xhtml" type="math_number"><field name="NUM">0</field></shadow><block type="spritescreate" id="w^:Gk%rH},$U;13@@Ji$"><value name="img"><shadow type="screen_image_picker" id="fJ8G3-e/#~yGw{3zGg7o"><field name="img">img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . f f . . 
 . . . . . . . . . . . . f f f . 
-. . . . . . . . . . . . f 5 1 . 
-. . . . . . . . . . . . f f f . 
+. . . . . . . . . . . . f f 5 f 
+f f f f f f f f f f f f f f f f 
+. . . . f f f f f f f f f f . . 
 . . . . f f f f f f f f f . . . 
-. . . . f f f f f f f f f . . . 
-. . . . f f . . . . . f f . . . 
-. . . . f f . . . . . f f . . . 
-. . . . f f . . . . . f f . . . 
-`</field><data>{"commentRefs":[],"fieldData":{"img":"myImages.image1"}}</data></shadow></value><value name="kind"><shadow type="spritekind" id="J#L;P~o-qE%ki#h+Yb=;"><field name="MEMBER">Player</field></shadow></value></block></value><next><block type="game_control_sprite" id="wf[HXO|he~tlj.UBZEF$"><mutation xmlns="http://www.w3.org/1999/xhtml" _expanded="0" _input_init="false"></mutation><value name="sprite"><block type="variables_get" id="AddqX7RSD,DMX@hg31Q0"><field name="VAR" id="A$`o[#X=r51*t,B~Sq^K">player1</field></block></value></block></next></block></statement></block></xml>
+. . . . f . f . . . f . f . . . 
+. . . . f . f . . . f . f . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`</field><data>{"commentRefs":[],"fieldData":{"img":"myImages.image1"}}</data></shadow></value><value name="kind"><shadow type="spritekind" id="vRiPr--wl3/HZJtkOdx%"><field name="MEMBER">Player</field></shadow></value></block></value><next><block type="game_control_sprite" id="@#ay/KE8IMP{uL(g*hjv"><mutation xmlns="http://www.w3.org/1999/xhtml" _expanded="2" _input_init="true"></mutation><value name="sprite"><block type="variables_get" id="0pRZTlBRc^9;kL4J%`c."><field name="VAR" id="A$`o[#X=r51*t,B~Sq^K">player1</field></block></value><value name="vx"><shadow type="math_number" id="+FG5SJ^@ibeT;Y}AY5o^"><field name="NUM">100</field></shadow></value><value name="vy"><shadow type="math_number" id="J1U*y%MxhpjOL!]9I=J0"><field name="NUM">100</field></shadow></value><next><block type="tilemap_editor" id="kf+{-2s469-%hIX$.SHI"><field name="tilemap">tilemap`level1`</field><data>{"commentRefs":[],"fieldData":{"tilemap":"level1"}}</data></block></next></block></next></block></next></block></statement></block></xml>
