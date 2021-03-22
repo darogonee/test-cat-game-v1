@@ -1,5 +1,16 @@
+// add restart menu
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
+    game.over(false, effects.melt)
+})
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (player1.vy == 0) {
+        player1.vy = -175
+    }
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    player1.vy = -175
+    if (player1.vy == 0) {
+        player1.vy = -175
+    }
 })
 let player1: Sprite = null
 scene.setBackgroundColor(9)
