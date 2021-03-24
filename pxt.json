@@ -1,5 +1,5 @@
 {
-    "name": "test cat game v0.2",
+    "name": "test cat game v0.3",
     "description": "",
     "dependencies": {
         "device": "*",
@@ -21,7 +21,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "1.4.27",
+        "target": "1.4.28",
         "targetId": "arcade"
     },
     "supportedTargets": [
