@@ -1133,6 +1133,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.evilheart, function (sprite, oth
     info.changeLifeBy(-1)
     otherSprite.destroy()
 })
+controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (true) {
+    	
+    }
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.bee, function (sprite, otherSprite) {
     otherSprite.destroy()
     if (player1.y <= normall_bee.y) {
@@ -1153,7 +1158,7 @@ let player1: Sprite = null
 let current_level = 0
 let startlevel = 0
 startlevel = 1
-current_level = 3
+current_level = 0
 player1 = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
