@@ -19,8 +19,8 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, l
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.smallfireball, function (sprite, otherSprite) {
     music.knock.play()
-    health.value += -40
     info.changeLifeBy(-2)
+    health.value += -40
     otherSprite.destroy()
 })
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -185,10 +185,12 @@ function start_level () {
             controller.moveSprite(player1, 100, 0)
         } else if (free == 1) {
             info.setLife(999)
-            health.value = 19980
+            health.value = 10000000000
             controller.moveSprite(player1, 200, 200)
+            hard = 0
         } else if (hard == 1) {
             controller.moveSprite(player1, 90, 0)
+            free = 0
         }
         scene.cameraFollowSprite(player1)
         tiles.placeOnRandomTile(player1, assets.tile`myTile7`)
@@ -1175,7 +1177,8 @@ function deadretry () {
         7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
         `)
     tiles.setTilemap(tilemap`level13`)
-    info.setLife(6)
+    info.setLife(3)
+    health.value = 60
     kill_all()
     startlevel = 0
     is_dead = 1
@@ -1432,7 +1435,11 @@ function deadretry () {
     }
 }
 statusbars.onZero(StatusBarKind.playerhealth, function (status) {
-    deadretry()
+    if (free == 0) {
+        deadretry()
+    } else {
+    	
+    }
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     if (is_level_choice == 1) {
@@ -2410,8 +2417,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.flower, function (sprite, otherS
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.evilheart, function (sprite, otherSprite) {
     music.knock.play()
-    health.value += -20
     info.changeLifeBy(-1)
+    health.value += -20
     otherSprite.destroy()
 })
 function game_start () {
@@ -2493,8 +2500,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.bee, function (sprite, otherSpri
         info.changeScoreBy(5)
     } else {
         music.knock.play()
-        health.value += -20
         info.changeLifeBy(-1)
+        health.value += -20
     }
 })
 function level_selceter () {
@@ -3780,7 +3787,7 @@ player1 = sprites.create(img`
 info.setLife(3)
 // width 17 hight 3
 health = statusbars.create(0, 0, StatusBarKind.playerhealth)
-health.value = 100
+health.value = 60
 health.attachToSprite(player1, -2, 0)
 // border width 1 back
 health.setBarBorder(0, 15)
