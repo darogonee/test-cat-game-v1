@@ -182,15 +182,38 @@ function start_level () {
         if (hard == 0 && free == 0) {
             info.setLife(5)
             health.value = 100
-            controller.moveSprite(player1, 100, 0)
+            controller.player1.moveSprite(player1, 100, 0)
         } else if (free == 1) {
             info.setLife(999)
             health.value = 10000000000
-            controller.moveSprite(player1, 200, 200)
+            controller.player1.moveSprite(player1, 200, 200)
             hard = 0
         } else if (hard == 1) {
-            controller.moveSprite(player1, 90, 0)
+            controller.player1.moveSprite(player1, 90, 0)
             free = 0
+        }
+        if (_2_player == 1) {
+            player2 = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . f . . . . . . . . f f . . 
+                . . f . . . . . . . . . f f f . 
+                . . f . . . . . . . . . f f 9 f 
+                . . . f f f f f f f f f f f f f 
+                . . . . f f f f f f f f f f . . 
+                . . . . f f f f f f f f f . . . 
+                . . . . f . f . . . f . f . . . 
+                . . . . f . f . . . f . f . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, SpriteKind.Player)
+            tiles.placeOnRandomTile(player2, assets.tile`myTile7`)
+            controller.player2.moveSprite(player2, 100, 0)
+            player2.setFlag(SpriteFlag.BounceOnWall, false)
         }
         scene.cameraFollowSprite(player1)
         tiles.placeOnRandomTile(player1, assets.tile`myTile7`)
@@ -808,6 +831,14 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (startlevel == 0) {
         game_start()
     }
+    if (_2_player == 1) {
+        if (startlevel == 1) {
+            if (player2.vy == 0) {
+                player2.vy = -175
+                music.jumpUp.play()
+            }
+        }
+    }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.heart, function (sprite, otherSprite) {
     music.baDing.play()
@@ -970,6 +1001,10 @@ function deadretry () {
     is_dead = 1
     free = 0
     hard = 0
+    _2_player = 0
+    if (_2_player == 1) {
+        player2.destroy()
+    }
     if (dead_bar == 0) {
         scene.setBackgroundImage(img`
             7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
@@ -3022,6 +3057,11 @@ function game_start () {
         startlevel = 1
         tutorial_level = 1
         tutorial()
+    } else if (options_bar1 == 14) {
+        startlevel = 1
+        current_level = 0
+        _2_player = 1
+        start_level()
     } else {
     	
     }
@@ -3667,6 +3707,7 @@ function level_selceter () {
                 7777777777777777777777777777777777777777777777777777777777fffff7777777777fffff777777777777777777777777777777fffff77777777777777777777777777777777777777777777777
                 7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
                 `)
+            options_bar1 = 14
         } else if (level_select == 5) {
             scene.setBackgroundImage(img`
                 7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
@@ -4177,6 +4218,8 @@ let evil_heart: Sprite = null
 let heart1: Sprite = null
 let evil_coin: Sprite = null
 let small_coin: Sprite = null
+let player2: Sprite = null
+let _2_player = 0
 let free = 0
 let hard = 0
 let dead_bar = 0
@@ -4427,10 +4470,89 @@ game.onUpdate(function () {
         player1.image.flipX()
         player1.setImage(player1.image)
     }
-    if (info.life() <= 0) {
-        tiles.setTilemap(tilemap`level27`)
-        info.setLife(3)
-        deadretry()
+    if (_2_player == 1) {
+        player2.setImage(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . f . . . . . . . . f f . . 
+            . . f . . . . . . . . . f f f . 
+            . . f . . . . . . . . . f f 9 f 
+            . . . f f f f f f f f f f f f f 
+            . . . . f f f f f f f f f f . . 
+            . . . . f f f f f f f f f . . . 
+            . . . . f . f . . . f . f . . . 
+            . . . . f . f . . . f . f . . . 
+            `)
+        if (player2.vy < 0) {
+            player2.setImage(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . f . . . . 
+                . . . . . . . . . . . f f f . . 
+                . . . . . . . . . . . f f 5 f . 
+                . . . f . . . . . . f f f f f . 
+                . . . f . . . . . . f f f f . . 
+                . . f f . . . . . f f f . . . . 
+                . . f . . . . . . f f f f f f f 
+                . . f . . . . . f f f f . . . . 
+                . . f f . . . f f f f f f f f . 
+                . . . f f f f f f f . . . . . . 
+                . . . . . . f f f . . . . . . . 
+                . . . . . f f . f . . . . . . . 
+                . . . . . f . . f . . . . . . . 
+                . . . . . f . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `)
+        } else {
+        	
+        }
+        if ((player2.isHittingTile(CollisionDirection.Left) || player2.isHittingTile(CollisionDirection.Right)) && player2.vy >= 0) {
+            player2.vy = 0
+            player2.ay = 0
+            player2.setImage(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . f f . . 
+                . . . . . . . . . . . f 5 f . . 
+                . . . . . . . . . . . f f f . . 
+                . . . . . . . . . . f f f f . . 
+                . . . . . . . . . . . . f f f f 
+                . . . . . . . . . . . . f f . . 
+                . . . . . . . . . . . . f f f f 
+                . . . . . . . f . . . . f f . . 
+                . . . . . . . f . . . . f f . . 
+                . . . . . . . f . . . . f f . . 
+                . . . . . . . f . . . . f f f f 
+                . . . . . . . f f . . . f f . . 
+                . . . . . . . . f f f f f f f f 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `)
+        } else {
+            player2.ay = 375
+        }
+        if (player2.vx < 0 || player2.isHittingTile(CollisionDirection.Left)) {
+            player2.image.flipX()
+            player2.setImage(player2.image)
+        }
+    }
+    if (_2_player == 0) {
+        if (info.life() <= 0) {
+            tiles.setTilemap(tilemap`level27`)
+            info.setLife(3)
+            deadretry()
+        }
+    }
+    if (_2_player == 1) {
+        if (info.life() <= 0) {
+            tiles.setTilemap(tilemap`level27`)
+            info.setLife(3)
+            deadretry()
+        }
     }
 })
 game.onUpdateInterval(100, function () {
