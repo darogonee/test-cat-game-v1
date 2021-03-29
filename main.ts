@@ -1024,6 +1024,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
 sprites.onOverlap(SpriteKind.Player, SpriteKind.heart, function (sprite, otherSprite) {
     music.baDing.play()
     info.changeLifeBy(1)
+    health.value += 20
     otherSprite.destroy()
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -2355,6 +2356,7 @@ function tutorial () {
     if (startlevel == 1) {
         if (tutorial_level == 1) {
             tiles.setTilemap(tilemap`level23`)
+            game.showLongText("Small coins will give you one coin. Evil coins will steal five of your coins. Hearts will give you one health point. Evil hearts will steal one of your hearts. If you tuch a flower a bee will spawn. If you you jump on top of it it will die if it hit you from above you will take one damage ", DialogLayout.Bottom)
         } else if (tutorial_level == 2) {
             tiles.setTilemap(tilemap`level23`)
         } else {
@@ -3015,7 +3017,6 @@ function level_selceter () {
                 77777777777fffff7777777777777ffffffffff777777777777fffff7777777777ffffffffff7777777fffff7777777777fffff777fffff777fffff7777777777fffff777fffffffffffffff77777777
                 `)
         } else if (level_select == 3) {
-            // tutorial
             scene.setBackgroundImage(img`
                 7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
                 7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
