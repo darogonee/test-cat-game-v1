@@ -7,6 +7,7 @@ namespace SpriteKind {
     export const smallfireball = SpriteKind.create()
     export const evilcoin = SpriteKind.create()
     export const trampalion1 = SpriteKind.create()
+    export const key1 = SpriteKind.create()
 }
 namespace StatusBarKind {
     export const playerhealth = StatusBarKind.create()
@@ -70,6 +71,8 @@ function start_level () {
             tiles.setTilemap(tilemap`level7`)
         } else if (current_level == 5) {
             tiles.setTilemap(tilemap`level12`)
+        } else if (current_level == 6) {
+            tiles.setTilemap(tilemap`level41`)
         } else {
             // change to main menu
             game.over(true, effects.confetti)
@@ -527,6 +530,28 @@ function start_level () {
             true
             )
             tiles.placeOnTile(small_coin, value)
+            tiles.setTileAt(value, assets.tile`transparency16`)
+        }
+        for (let value of tiles.getTilesByType(assets.tile`myTile18`)) {
+            key1 = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . 5 5 5 . . . . . . . . . . 
+                . . . 5 5 5 5 . . . . . . . . . 
+                . . . 5 5 5 5 5 . . . . . . . . 
+                . . . 5 5 5 5 5 5 . . . . . . . 
+                . . 5 . . 5 5 5 5 5 . . . . . . 
+                . 5 . . . 5 5 5 5 5 5 . . . . . 
+                . . . . 5 . . 5 5 5 5 5 5 5 . . 
+                . . . 5 . . . 5 5 5 5 5 5 5 5 . 
+                . . . . . . 5 . . 5 5 5 5 5 5 5 
+                . . . . . 5 . . . 5 5 5 5 5 5 5 
+                . . . . . . . . . 5 5 5 5 5 5 5 
+                . . . . . . . . . . 5 5 5 5 5 . 
+                . . . . . . . . . . . 5 5 5 . . 
+                `, SpriteKind.key1)
+            tiles.placeOnTile(key1, value)
             tiles.setTileAt(value, assets.tile`transparency16`)
         }
         for (let value of tiles.getTilesByType(assets.tile`myTile13`)) {
@@ -4841,6 +4866,25 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile17`, function (sprite, 
     tutorial_level += 1
     tutorial()
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.key1, function (sprite, otherSprite) {
+    for (let value of tiles.getTilesByType(assets.tile`myTile19`)) {
+        tiles.setTileAt(value, assets.tile`transparency16`)
+        tiles.setWallAt(value, false)
+    }
+    for (let value of tiles.getTilesByType(assets.tile`myTile20`)) {
+        tiles.setTileAt(value, assets.tile`transparency16`)
+        tiles.setWallAt(value, false)
+    }
+    for (let value of tiles.getTilesByType(assets.tile`myTile21`)) {
+        tiles.setTileAt(value, assets.tile`transparency16`)
+        tiles.setWallAt(value, false)
+    }
+    for (let value of tiles.getTilesByType(assets.tile`myTile22`)) {
+        tiles.setTileAt(value, assets.tile`transparency16`)
+        tiles.setWallAt(value, false)
+    }
+    otherSprite.destroy()
+})
 function level_choice_p () {
     if (level_choices == 0) {
         scene.setBackgroundImage(img`
@@ -6243,6 +6287,9 @@ function kill_all () {
     for (let value of sprites.allOfKind(SpriteKind.evilcoin)) {
         value.destroy()
     }
+    for (let value of sprites.allOfKind(SpriteKind.key1)) {
+        value.destroy()
+    }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.trampalion1, function (sprite, otherSprite) {
     player1.vy = -350
@@ -6926,6 +6973,28 @@ function tutorial () {
         tiles.placeOnTile(evil_heart, value)
         tiles.setTileAt(value, assets.tile`transparency16`)
     }
+    for (let value of tiles.getTilesByType(assets.tile`myTile18`)) {
+        key1 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . 5 5 5 . . . . . . . . . . 
+            . . . 5 5 5 5 . . . . . . . . . 
+            . . . 5 5 5 5 5 . . . . . . . . 
+            . . . 5 5 5 5 5 5 . . . . . . . 
+            . . 5 . . 5 5 5 5 5 . . . . . . 
+            . 5 . . . 5 5 5 5 5 5 . . . . . 
+            . . . . 5 . . 5 5 5 5 5 5 5 . . 
+            . . . 5 . . . 5 5 5 5 5 5 5 5 . 
+            . . . . . . 5 . . 5 5 5 5 5 5 5 
+            . . . . . 5 . . . 5 5 5 5 5 5 5 
+            . . . . . . . . . 5 5 5 5 5 5 5 
+            . . . . . . . . . . 5 5 5 5 5 . 
+            . . . . . . . . . . . 5 5 5 . . 
+            `, SpriteKind.key1)
+        tiles.placeOnTile(key1, value)
+        tiles.setTileAt(value, assets.tile`transparency16`)
+    }
     for (let value of tiles.getTilesByType(assets.tile`myTile6`)) {
         flower1 = sprites.create(img`
             . . . . . . . . . . . . . . . . 
@@ -7080,7 +7149,7 @@ function game_start () {
         start_level()
     }
     if (options_bar1 == 1) {
-        current_level = 0
+        current_level = 6
         startlevel = 1
         start_level()
     } else if (options_bar1 == 2) {
@@ -7459,6 +7528,28 @@ function start_world1 () {
         tiles.placeOnRandomTile(player1, assets.tile`myTile7`)
         kill_all()
         for (let value of tiles.getTilesByType(assets.tile`myTile7`)) {
+            tiles.setTileAt(value, assets.tile`transparency16`)
+        }
+        for (let value of tiles.getTilesByType(assets.tile`myTile18`)) {
+            key1 = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . 5 5 5 . . . . . . . . . . 
+                . . . 5 5 5 5 . . . . . . . . . 
+                . . . 5 5 5 5 5 . . . . . . . . 
+                . . . 5 5 5 5 5 5 . . . . . . . 
+                . . 5 . . 5 5 5 5 5 . . . . . . 
+                . 5 . . . 5 5 5 5 5 5 . . . . . 
+                . . . . 5 . . 5 5 5 5 5 5 5 . . 
+                . . . 5 . . . 5 5 5 5 5 5 5 5 . 
+                . . . . . . 5 . . 5 5 5 5 5 5 5 
+                . . . . . 5 . . . 5 5 5 5 5 5 5 
+                . . . . . . . . . 5 5 5 5 5 5 5 
+                . . . . . . . . . . 5 5 5 5 5 . 
+                . . . . . . . . . . . 5 5 5 . . 
+                `, SpriteKind.key1)
+            tiles.placeOnTile(key1, value)
             tiles.setTileAt(value, assets.tile`transparency16`)
         }
         for (let value of tiles.getTilesByType(assets.tile`myTile4`)) {
@@ -9961,6 +10052,7 @@ let flower1: Sprite = null
 let evil_heart: Sprite = null
 let heart1: Sprite = null
 let evil_coin: Sprite = null
+let key1: Sprite = null
 let small_coin: Sprite = null
 let player2: Sprite = null
 let _2_player = 0
