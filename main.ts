@@ -8,6 +8,7 @@ namespace SpriteKind {
     export const evilcoin = SpriteKind.create()
     export const trampalion1 = SpriteKind.create()
     export const key1 = SpriteKind.create()
+    export const spike = SpriteKind.create()
 }
 namespace StatusBarKind {
     export const playerhealth = StatusBarKind.create()
@@ -928,6 +929,11 @@ function start_level () {
         }
     }
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.spike, function (sprite, otherSprite) {
+    info.changeLifeBy(-1)
+    health.value += -1
+    pause(1000)
+})
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (startlevel == 0) {
         game_start()
@@ -4305,6 +4311,14 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile25`, function (sprite, location) {
+    in_menu = 0
+    level_select = 0
+    in_world_list = 0
+    startlevel = 0
+    level_selceter()
+    tiles.setTilemap(tilemap`level42`)
+})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (is_world1_selection == 1) {
         world1_selection += -1
@@ -6263,6 +6277,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.coin, function (sprite, otherSpr
     otherSprite.destroy()
 })
 function kill_all () {
+    for (let value of sprites.allOfKind(SpriteKind.spike)) {
+        value.destroy()
+    }
     for (let value of sprites.allOfKind(SpriteKind.coin)) {
         value.destroy()
     }
@@ -7187,6 +7204,7 @@ function game_start () {
     } else if (options_bar1 == 10) {
         startlevel = 0
         is_dead = 0
+        in_menu = 0
         level_select = 1
         level_selceter()
     } else if (options_bar1 == 11) {
@@ -7290,11 +7308,10 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.bee, function (sprite, otherSpri
 })
 function start_world1 () {
     if (startlevel == 1) {
-        let world1_level = 0
         if (world1_level == 0) {
-            tiles.setTilemap(tilemap`level40`)
+            tiles.setTilemap(tilemap`level43`)
         } else if (world1_level == 1) {
-        	
+            tiles.setTilemap(tilemap`level44`)
         } else if (world1_level == 2) {
         	
         } else if (world1_level == 3) {
@@ -7528,6 +7545,28 @@ function start_world1 () {
         tiles.placeOnRandomTile(player1, assets.tile`myTile7`)
         kill_all()
         for (let value of tiles.getTilesByType(assets.tile`myTile7`)) {
+            tiles.setTileAt(value, assets.tile`transparency16`)
+        }
+        for (let value of tiles.getTilesByType(assets.tile`myTile24`)) {
+            spikes = sprites.create(img`
+                . . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . . 
+                . . 7 . . . 7 . . . 7 . . . 7 . . 
+                . . b . . . b . . . b . . . b . . 
+                . b b b . b b b . b b b . b b b . 
+                . b b b . b b b . b b b . b b b . 
+                b b b b b b b b b b b b b b b b b 
+                b b b b b b b b b b b b b b b b b 
+                `, SpriteKind.spike)
+            tiles.placeOnTile(spikes, value)
             tiles.setTileAt(value, assets.tile`transparency16`)
         }
         for (let value of tiles.getTilesByType(assets.tile`myTile18`)) {
@@ -10031,15 +10070,21 @@ function world1_level_selection () {
         }
     }
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile23`, function (sprite, location) {
+    world1_level += 1
+    start_world1()
+})
+let spikes: Sprite = null
+let world1_level = 0
 let cravity_amount = 0
 let jump_amount = 0
 let normall_bee: Sprite = null
-let in_menu = 0
 let tutorial_level = 0
 let level_choices = 0
 let is_level_choice = 0
 let world1_selection = 0
 let is_world1_selection = 0
+let in_menu = 0
 let gravity1 = 0
 let fly1 = 0
 let speed1 = 0
