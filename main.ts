@@ -7308,18 +7308,21 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.bee, function (sprite, otherSpri
 })
 function start_world1 () {
     if (startlevel == 1) {
+        // this world uses flowers and coins and spikres
         if (world1_level == 0) {
             tiles.setTilemap(tilemap`level43`)
         } else if (world1_level == 1) {
             tiles.setTilemap(tilemap`level44`)
         } else if (world1_level == 2) {
-        	
+            tiles.setTilemap(tilemap`level45`)
         } else if (world1_level == 3) {
-        	
+            tiles.setTilemap(tilemap`level46`)
         } else if (world1_level == 4) {
-        	
+            tiles.setTilemap(tilemap`level47`)
         } else if (world1_level == 5) {
-        	
+            tiles.setTilemap(tilemap`level48`)
+        } else if (world1_level == 6) {
+            tiles.setTilemap(tilemap`level49`)
         } else {
             // change to main menu
             game.over(true, effects.confetti)
